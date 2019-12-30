@@ -1,0 +1,39 @@
+<div class="main container">
+    <div class="search-and-dropdown-bar row">
+      <div class="search-container col-sm">
+        <input type="text" id="bank-detail-input" placeholder="Search in all fields..." [(ngModel)]="searchKey" (change)="test()"/>
+      </div>
+      <div class="dropdown-container col-sm">
+        <select class="dropdown" [(ngModel)]="selectedCity" (change)="citySelected(selectedCity)">
+          <option selected disabled>Select a city</option>
+          <option *ngFor="let city of cities">{{ city }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="bank-details-table-container row" id="banks-listing" *ngIf="banks.length > 0">
+      <table class="table table-striped table-responsive">
+        <thead class="thead-dark">
+          <tr>
+            <th>IFSC</th>
+            <th>BRANCH</th>
+            <th>ADDRESS</th>
+            <th>DISTRICT</th>
+            <th>STATE</th>
+            <th>BANK NAME</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bank of banks | search:searchKey">
+            <td>{{bank.ifsc}}</td>
+            <td>{{bank.branch}}</td>
+            <td>{{bank.address}}</td>
+            <td>{{bank.district}}</td>
+            <td>{{bank.state}}</td>
+            <td>{{bank.bank_name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <app-pagination-bar *ngIf="banks.length > 0">
+    </app-pagination-bar> -->
+  </div>
