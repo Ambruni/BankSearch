@@ -37,13 +37,17 @@
         </tbody>
       </table>
     </div>
-    <div *ngIf="banksCount > 0">
-      <nav aria-label="Page navigation example">
+    <div *ngIf="banksCount > 0" class="row">
+      <nav>
         <ul class="pagination">
           <li class="page-item page-link" (click)="decrementPage()">Previous</li>
           <li class="page-item page-link" *ngFor="let page of bankPages" (click)="updatePage(page)">{{page}}</li>
           <li class="page-item page-link" (click)="incrementPage()">Next</li>
         </ul>
       </nav>
+
+      <div class="ml-auto">
+        <input type="number" [(ngModel)]="pageSize" (change)="changePageLimit(pageSize)" />
+      </div>
     </div>
   </div>

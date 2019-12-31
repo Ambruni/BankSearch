@@ -102,4 +102,15 @@ export class HomeComponent implements OnInit {
     this.citySelected(this.selectedCity);
   }
 
+  changePageLimit(limit) {
+
+    if(limit == null){
+      return;
+    }
+
+    this.dataService.paginationOptions.limit = limit;
+    this.citySelected(this.selectedCity);
+
+  }
+
 }
