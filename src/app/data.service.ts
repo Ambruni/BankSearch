@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FavouritesService } from './favourites.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class DataService {
   };
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private favouritesService: FavouritesService
   ) { }
 
   loadData(selectedCity) {
@@ -23,10 +25,36 @@ export class DataService {
       {
         this.http.get(`http://vast-shore-74260.herokuapp.com/banks?city=${selectedCity}`).subscribe(result => {
           this.banks[selectedCity] = result;
-          resolve(this.banks[selectedCity].slice(this.paginationOptions.pageNumber - 1, this.paginationOptions.limit));
+          resolve(this.getPopulatedBanks(this.banks[selectedCity].slice(this.paginationOptions.pageNumber - 1, this.paginationOptions.limit)));
         }
       )
   });
+
+  }
+
+  getPopulatedBanks(banks) {
+
+    let favouriteBanks = this.favouritesService.getFavourites();
+
+    let populatedBanks = [];
+
+    for(let bank of banks) {
+
+      bank.favourite = 0;
+
+      for(let favouriteBank of favouriteBanks) {
+
+        if(bank.ifsc == favouriteBank.ifsc) {
+          bank.favourite = 1;
+        }
+
+      }
+
+      populatedBanks.push(bank);
+
+    }
+
+    return populatedBanks;
 
   }
 
@@ -46,7 +74,7 @@ export class DataService {
 
   getBankByCity(selectedCity) {
 
-    return this.banks[selectedCity].slice(this.paginationOptions.pageNumber - 1, this.paginationOptions.limit);
+    return this.getPopulatedBanks(this.banks[selectedCity].slice(this.paginationOptions.pageNumber - 1, this.paginationOptions.limit));
 
   }
 }

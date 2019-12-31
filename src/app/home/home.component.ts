@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { FavouritesService } from '../favourites.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
   cities;
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private favouritesService: FavouritesService
   ) { }
 
   ngOnInit() {
@@ -29,6 +31,20 @@ export class HomeComponent implements OnInit {
     this.dataService.loadData(selectedCity).then((data:any)=>{
       this.banks = data;
    });
+
+  }
+
+  addToFavourites(bank, selectedCity) {
+
+    this.favouritesService.addBankToFavourites(bank);
+    this.citySelected(selectedCity);
+
+  }
+
+  removeFromFavourites(bank, selectedCity) {
+
+    this.favouritesService.removeBankFromFavourites(bank);
+    this.citySelected(selectedCity);
 
   }
 

@@ -20,6 +20,7 @@
             <th>DISTRICT</th>
             <th>STATE</th>
             <th>BANK NAME</th>
+            <th>Favorites</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,8 @@
             <td>{{bank.district}}</td>
             <td>{{bank.state}}</td>
             <td>{{bank.bank_name}}</td>
+            <td *ngIf="bank.favourite == 1" class="favorites-column" (click)="removeFromFavourites(bank, selectedCity)"><i class="fa fa-star"></i></td>
+            <td *ngIf="bank.favourite == 0" class="favorites-column" (click)="addToFavourites(bank, selectedCity)"><i class="fa fa-star-o"></i></td>
           </tr>
         </tbody>
       </table>

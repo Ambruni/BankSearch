@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SearchPipe } from './search.pipe';
+import { PaginationBarComponent } from './pagination-bar/pagination-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SearchPipe
+    SearchPipe,
+    PaginationBarComponent
   ],
   imports: [
     BrowserModule,

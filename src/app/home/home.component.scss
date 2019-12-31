@@ -8,5 +8,19 @@
 
     #banks-listing {
         margin-top: 30px;
+
+        .fa {
+            font-size: 25px;
+        }
+
+        i{
+            transition: 0.15s;
+        }
+
+        .favorites-column {
+            vertical-align: middle;
+            text-align: center;
+            cursor: pointer;
+        }
     }
 }
