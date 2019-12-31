@@ -40,7 +40,36 @@ export class HomeComponent implements OnInit {
 
     this.banksCount = this.dataService.getBanksCountBySelectedCity(selectedCity);
 
-    for(let page=1; page <= Math.ceil(this.banksCount/this.pageSize); page++){
+    let currentPage = this.dataService.paginationOptions.pageNumber;
+    let maxPages = Math.ceil(this.banksCount/this.pageSize);
+
+    let pagesLimit = 5;
+    let pagesStart = 1;
+
+    let pageDifference = maxPages - currentPage;
+
+    if(pageDifference == 0) {
+      pagesStart = currentPage - 4;
+      pagesLimit = currentPage;
+    } else if(pageDifference == 1) {
+      pagesStart = currentPage - 3;
+      pagesLimit = currentPage + 1;
+    } else if(pageDifference >= 2) {
+      pagesStart = currentPage - 2;
+      pagesLimit = currentPage + 2;
+    }
+
+    if(currentPage == 1 || currentPage == 2) {
+      pagesStart = 1;
+      pagesLimit = 5;
+    }
+
+    if(maxPages < pagesLimit) {
+      pagesLimit = maxPages;
+      pagesStart = 1;
+    }
+
+    for(let page=pagesStart; page <= pagesLimit; page++){
       this.bankPages.push(page);
     }
 
@@ -111,6 +140,10 @@ export class HomeComponent implements OnInit {
     this.dataService.paginationOptions.limit = limit;
     this.citySelected(this.selectedCity);
 
+  }
+
+  resetPaginationOptions() {
+    this.dataService.paginationOptions.pageNumber = 1;
   }
 
 }

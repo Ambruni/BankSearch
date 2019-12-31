@@ -4,7 +4,7 @@
         <input type="text" id="bank-detail-input" placeholder="Search in all fields..." [(ngModel)]="searchKey" (change)="test()"/>
       </div>
       <div class="dropdown-container col-sm">
-        <select class="dropdown" [(ngModel)]="selectedCity" (change)="citySelected(selectedCity)">
+        <select class="dropdown" [(ngModel)]="selectedCity" (change)="resetPaginationOptions(); citySelected(selectedCity);">
           <option selected disabled>Select a city</option>
           <option *ngFor="let city of cities">{{ city }}</option>
         </select>
