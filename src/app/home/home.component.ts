@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   banksCount;
   bankPages = [];
   pageSize = 10;
+  maxPages;
 
   constructor(
     private dataService: DataService,
@@ -41,12 +42,12 @@ export class HomeComponent implements OnInit {
     this.banksCount = this.dataService.getBanksCountBySelectedCity(selectedCity);
 
     let currentPage = this.dataService.paginationOptions.pageNumber;
-    let maxPages = Math.ceil(this.banksCount/this.pageSize);
+    this.maxPages = Math.ceil(this.banksCount/this.pageSize);
 
     let pagesLimit = 5;
     let pagesStart = 1;
 
-    let pageDifference = maxPages - currentPage;
+    let pageDifference = this.maxPages - currentPage;
 
     if(pageDifference == 0) {
       pagesStart = currentPage - 4;
@@ -64,8 +65,8 @@ export class HomeComponent implements OnInit {
       pagesLimit = 5;
     }
 
-    if(maxPages < pagesLimit) {
-      pagesLimit = maxPages;
+    if(this.maxPages < pagesLimit) {
+      pagesLimit = this.maxPages;
       pagesStart = 1;
     }
 
@@ -113,7 +114,7 @@ export class HomeComponent implements OnInit {
 
   incrementPage() {
 
-    if(this.dataService.paginationOptions.pageNumber >= this.bankPages.length) {
+    if(this.dataService.paginationOptions.pageNumber >= this.maxPages) {
       return;
     }
 
@@ -136,7 +137,7 @@ export class HomeComponent implements OnInit {
     if(limit == null){
       return;
     }
-
+    this.resetPaginationOptions();
     this.dataService.paginationOptions.limit = limit;
     this.citySelected(this.selectedCity);
 
