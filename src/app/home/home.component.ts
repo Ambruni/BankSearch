@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { FavouritesService } from '../favourites.service';
 import { ActivatedRoute } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,9 @@ export class HomeComponent implements OnInit {
   banks = [];
   cities;
   selectedCity;
+  banksCount;
+  bankPages = [];
+  pageSize = 10;
 
   constructor(
     private dataService: DataService,
@@ -31,15 +35,29 @@ export class HomeComponent implements OnInit {
     this.cities = this.dataService.getCities();
   }
 
+  updatePaginationOptions(selectedCity) {
+
+    this.bankPages = [];
+
+    this.banksCount = this.dataService.getBanksCountBySelectedCity(selectedCity);
+
+    for(let page=1; page <= Math.ceil(this.banksCount/this.pageSize); page++){
+      this.bankPages.push(page);
+    }
+
+  }
+
   citySelected(selectedCity) {
 
     if(this.dataService.isDataExists(selectedCity) === true) {
       this.banks = this.dataService.getBankByCity(selectedCity);
+      this.updatePaginationOptions(selectedCity);
       return;
     }
 
     this.dataService.loadData(selectedCity).then((data:any)=>{
       this.banks = data;
+      this.updatePaginationOptions(selectedCity);
    });
 
   }
@@ -56,6 +74,33 @@ export class HomeComponent implements OnInit {
     this.favouritesService.removeBankFromFavourites(bank);
     this.citySelected(selectedCity);
 
+  }
+
+  updatePage(pageNumber) {
+
+    this.dataService.updatePage(pageNumber, this.selectedCity);
+    this.citySelected(this.selectedCity);
+
+  }
+
+  incrementPage() {
+
+    if(this.dataService.paginationOptions.pageNumber >= this.bankPages.length) {
+      return;
+    }
+
+    this.dataService.incrementPage();
+    this.citySelected(this.selectedCity);
+  }
+
+  decrementPage() {
+
+    if(this.dataService.paginationOptions.pageNumber <= 1) {
+      return;
+    }
+
+    this.dataService.decrementPage();
+    this.citySelected(this.selectedCity);
   }
 
 }

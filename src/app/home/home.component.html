@@ -37,6 +37,13 @@
         </tbody>
       </table>
     </div>
-    <!-- <app-pagination-bar *ngIf="banks.length > 0">
-    </app-pagination-bar> -->
+    <div *ngIf="banksCount > 0">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item page-link" (click)="decrementPage()">Previous</li>
+          <li class="page-item page-link" *ngFor="let page of bankPages" (click)="updatePage(page)">{{page}}</li>
+          <li class="page-item page-link" (click)="incrementPage()">Next</li>
+        </ul>
+      </nav>
+    </div>
   </div>

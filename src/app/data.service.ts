@@ -25,7 +25,7 @@ export class DataService {
       {
         this.http.get(`http://vast-shore-74260.herokuapp.com/banks?city=${selectedCity}`).subscribe(result => {
           this.banks[selectedCity] = result;
-          resolve(this.getPopulatedBanks(this.banks[selectedCity].slice(this.paginationOptions.pageNumber - 1, this.paginationOptions.limit)));
+          resolve(this.getPopulatedBanks(this.banks[selectedCity].slice((this.paginationOptions.pageNumber - 1) * this.paginationOptions.limit, (this.paginationOptions.limit * this.paginationOptions.pageNumber))));
         }
       )
   });
@@ -74,7 +74,7 @@ export class DataService {
 
   getBankByCity(selectedCity) {
 
-    return this.getPopulatedBanks(this.banks[selectedCity].slice(this.paginationOptions.pageNumber - 1, this.paginationOptions.limit));
+    return this.getPopulatedBanks(this.banks[selectedCity].slice((this.paginationOptions.pageNumber - 1) * this.paginationOptions.limit, (this.paginationOptions.limit * this.paginationOptions.pageNumber)));
 
   }
 
@@ -86,6 +86,28 @@ export class DataService {
       }
     }
 
+  }
+
+  getBanksCountBySelectedCity(selectedCity) {
+
+    if(typeof this.banks[selectedCity] === 'undefined') {
+      return;
+    }
+
+    return this.banks[selectedCity].length;
+
+  }
+
+  updatePage(pageNumber, selectedCity) {
+    this.paginationOptions.pageNumber = pageNumber;
+  }
+
+  incrementPage() {
+    this.paginationOptions.pageNumber = this.paginationOptions.pageNumber + 1;
+  }
+
+  decrementPage() {
+    this.paginationOptions.pageNumber = this.paginationOptions.pageNumber - 1;
   }
 
 }

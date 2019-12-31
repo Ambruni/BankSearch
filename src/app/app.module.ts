@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SearchPipe } from './search.pipe';
-import { PaginationBarComponent } from './pagination-bar/pagination-bar.component';
 import { BankDetailsComponent } from './bank-details/bank-details.component';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { BankDetailsComponent } from './bank-details/bank-details.component';
     AppComponent,
     HomeComponent,
     SearchPipe,
-    PaginationBarComponent,
     BankDetailsComponent
   ],
   imports: [
