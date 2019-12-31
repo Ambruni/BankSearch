@@ -77,4 +77,15 @@ export class DataService {
     return this.getPopulatedBanks(this.banks[selectedCity].slice(this.paginationOptions.pageNumber - 1, this.paginationOptions.limit));
 
   }
+
+  getBankByIFSC(selectedCity, ifsc) {
+
+    for(let bank of this.banks[selectedCity]) {
+      if(bank.ifsc == ifsc) {
+        return bank;
+      }
+    }
+
+  }
+
 }

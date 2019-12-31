@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { FavouritesService } from '../favourites.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +12,20 @@ export class HomeComponent implements OnInit {
 
   banks = [];
   cities;
+  selectedCity;
 
   constructor(
     private dataService: DataService,
-    private favouritesService: FavouritesService
-  ) { }
+    private favouritesService: FavouritesService,
+    private route: ActivatedRoute
+  ) { 
+    this.route.paramMap.subscribe(params => {
+      if(params.get('selectedCity') !== null){
+        this.citySelected(params.get('selectedCity'));
+        this.selectedCity = params.get('selectedCity');
+      }
+    });
+  }
 
   ngOnInit() {
     this.cities = this.dataService.getCities();

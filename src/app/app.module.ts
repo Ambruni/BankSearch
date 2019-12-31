@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SearchPipe } from './search.pipe';
 import { PaginationBarComponent } from './pagination-bar/pagination-bar.component';
+import { BankDetailsComponent } from './bank-details/bank-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SearchPipe,
-    PaginationBarComponent
+    PaginationBarComponent,
+    BankDetailsComponent
   ],
   imports: [
     BrowserModule,

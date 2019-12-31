@@ -30,7 +30,7 @@
             <td>{{bank.address}}</td>
             <td>{{bank.district}}</td>
             <td>{{bank.state}}</td>
-            <td>{{bank.bank_name}}</td>
+            <td><a [routerLink]="['/bank-details', selectedCity, bank.ifsc]">{{bank.bank_name}}</a></td>
             <td *ngIf="bank.favourite == 1" class="favorites-column" (click)="removeFromFavourites(bank, selectedCity)"><i class="fa fa-star"></i></td>
             <td *ngIf="bank.favourite == 0" class="favorites-column" (click)="addToFavourites(bank, selectedCity)"><i class="fa fa-star-o"></i></td>
           </tr>
