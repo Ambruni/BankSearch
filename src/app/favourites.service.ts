@@ -7,11 +7,25 @@ export class FavouritesService {
 
   favouriteBanks = [];
 
-  constructor() { }
+  constructor() { 
+    this.extractFavourites();
+   }
+
+  extractFavourites() {
+
+    let favouriteBanks = JSON.parse(localStorage.getItem("favouriteBanks"));
+
+    if(favouriteBanks === null) {
+      return;
+    }
+
+    this.favouriteBanks = JSON.parse(localStorage.getItem("favouriteBanks"));
+
+  }
 
   addBankToFavourites(bank) {
-
-    this.favouriteBanks.push(bank);
+    this.favouriteBanks.push({ifsc: bank.ifsc});
+    this.storeFavourites();
   }
 
   removeBankFromFavourites(bank) {
@@ -19,6 +33,14 @@ export class FavouritesService {
     this.favouriteBanks = this.favouriteBanks.filter((favouriteBank) => {
       return bank.ifsc !== favouriteBank.ifsc;
     });
+
+    this.storeFavourites();
+
+  }
+
+  storeFavourites() {
+
+    localStorage.setItem("favouriteBanks", JSON.stringify(this.favouriteBanks));
 
   }
 
