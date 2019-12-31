@@ -1,7 +1,10 @@
-<p><strong>IFSC: </strong>{{bank.ifsc}}</p>
-<p><strong>BANK NAME: </strong>{{bank.bank_name}}</p>
-<p><strong>DISTRICT: </strong>{{bank.district}}</p>
-<p><strong>ADDRESS: </strong>{{bank.address}}</p>
-<p><strong>BRANCH: </strong>{{bank.branch}}</p>
-<p><strong>STATE: </strong>{{bank.state}}</p>
-<a [routerLink]="['/home', selectedCity]">HOME</a>
+<h2>Bank Details</h2>
+<div class="details">
+    <div class="labels"><label class="field"><strong>IFSC: </strong></label><label>{{bank.ifsc}}</label></div>
+    <div class="labels"><label class="field"><strong>BANK NAME: </strong></label><label>{{bank.bank_name}}</label></div>
+    <div class="labels"><label class="field"><strong>DISTRICT: </strong></label><label>{{bank.district}}</label></div>
+    <div class="labels"><label class="field"><strong>ADDRESS: </strong></label><label>{{bank.address}}</label></div>
+    <div class="labels"><label class="field"><strong>BRANCH: </strong></label><label>{{bank.branch}}</label></div>
+    <div class="labels"><label class="field"><strong>STATE: </strong></label><label>{{bank.state}}</label></div>
+    <a [routerLink]="['/home', selectedCity]">HOME</a>
+</div>

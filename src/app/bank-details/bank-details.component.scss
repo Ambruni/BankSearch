@@ -1,0 +1,19 @@
+h2{
+    text-align: center;
+    margin-top: 50px;
+}
+
+.details{
+    margin: 55px 305px;
+    display: grid;
+}
+
+.labels{
+    display: grid;
+    grid-template-columns: 200px auto;
+    grid-column-gap: 20px;
+}
+
+a{
+    margin-top: 50px;
+}
